@@ -1,4 +1,4 @@
-package webdriver.browserFactory;
+package core.webdriver.browserFactory;
 
 import org.openqa.selenium.remote.RemoteWebDriver;
 

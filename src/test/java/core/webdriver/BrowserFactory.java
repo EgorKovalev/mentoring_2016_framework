@@ -1,13 +1,13 @@
-package webdriver;
+package core.webdriver;
 
 import org.openqa.selenium.remote.RemoteWebDriver;
-import webdriver.Browser.*;
-import webdriver.browserFactory.ChromeDriverCreator;
-import webdriver.browserFactory.DriverCreator;
-import webdriver.browserFactory.FireFoxDriverCreator;
+import core.webdriver.Browser.*;
+import core.webdriver.browserFactory.ChromeDriverCreator;
+import core.webdriver.browserFactory.DriverCreator;
+import core.webdriver.browserFactory.FireFoxDriverCreator;
 
 public abstract class BrowserFactory {
-
+    //factory pattern example
     public static RemoteWebDriver setUp(final Browsers browser) {
         DriverCreator driverCreator = new FireFoxDriverCreator();
 
@@ -17,7 +17,7 @@ public abstract class BrowserFactory {
                 break;
 
             case CHROME:
-                System.setProperty("webdriver.chrome.driver", "grid\\chromedriver.exe");
+                System.setProperty("webdriver.chrome.driver", "src\\test\\resources\\chromedriver.exe");
                 driverCreator = new ChromeDriverCreator();
                 break;
 

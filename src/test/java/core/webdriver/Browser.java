@@ -1,4 +1,4 @@
-package webdriver;
+package core.webdriver;
 
 import com.google.common.base.Strings;
 import org.openqa.selenium.WebDriver;
@@ -30,6 +30,11 @@ public class Browser {
             instance = new Browser();
         }
         return instance;
+    }
+
+    public static WebDriver getDriver(){
+        getInstance();
+        return driver;
     }
 
     private static void initProperties() {
