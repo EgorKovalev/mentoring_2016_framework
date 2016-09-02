@@ -13,17 +13,12 @@ public abstract class BaseForm {
     protected By titleLocator;
     protected static Logger logger = Logger.getInstance();
     protected static WebDriver driver = Browser.getDriver();
-    protected static User user = new User();
     private static JavascriptExecutor js = (JavascriptExecutor)driver;
     private static Actions actions = new Actions(driver);
 
     protected BaseForm(final By titleLoc){
         waitForPageToLoad();
         titleLocator = titleLoc;
-    }
-
-    public static String getUserName(){
-        return user.getUsername();
     }
 
     public void waitForPageToLoad() {

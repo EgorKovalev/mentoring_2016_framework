@@ -1,9 +1,9 @@
 package yandex;
 
+import core.businessLogic.User;
 import core.webdriver.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import core.webdriver.BaseForm;
 import yandex.forms.MailPage;
 import yandex.forms.MainPage;
 import yandex.forms.NewMessagePage;
@@ -11,23 +11,32 @@ import yandex.forms.NewMessagePage;
 import java.util.List;
 
 public class TestRunner extends BaseTest {
+    private static User user = new User();
+
+    @Test (priority = 1)
+    public void checkMailBoxFullName(){
+        MainPage mainPage = new MainPage();
+        mainPage.authorizeUser(user);
+
+        MailPage mailPage = new MailPage();
+        Assert.assertTrue(mailPage.isDisplayedNameCorrect(user));
+        mainPage.logOutUser();
+    }
 
     @Test (priority = 1)
     public void successfulAuthorization(){
-        final String username = BaseForm.getUserName();
-
         MainPage mainPage = new MainPage();
-        mainPage.authorizeUser();
+        mainPage.authorizeUser(user);
 
         MailPage mailPage = new MailPage();
-        Assert.assertTrue(mailPage.getCurrentEmailBoxName().contains(username));
+        Assert.assertTrue(mailPage.getCurrentEmailBoxName().contains(user.getUsername()));
         mainPage.logOutUser();
     }
 
     @Test (priority = 2)
     public void createNewMessageAndSaveInDraft(){
         MainPage mainPage = new MainPage();
-        mainPage.authorizeUser();
+        mainPage.authorizeUser(user);
 
         MailPage mailPage = new MailPage();
         int itemsNumber = mailPage.getItemsNumber("Черновики");
@@ -45,7 +54,7 @@ public class TestRunner extends BaseTest {
     @Test (priority = 2)
     public void createNewMessageAndDoNotSave(){
         MainPage mainPage = new MainPage();
-        mainPage.authorizeUser();
+        mainPage.authorizeUser(user);
 
         MailPage mailPage = new MailPage();
         int itemsNumber = mailPage.getItemsNumber("Черновики");
@@ -63,10 +72,10 @@ public class TestRunner extends BaseTest {
     @Test (priority = 2)
     public void verifyDraftTopic(){
         String to = "test@mail.ru";
-        String topicName = "verify new message topic " + 5;
+        String topicName = "verify new message topic " + getRandomNumber();
 
         MainPage mainPage = new MainPage();
-        mainPage.authorizeUser();
+        mainPage.authorizeUser(user);
 
         MailPage mailPage = new MailPage();
         mailPage.clickToolbarItem("Написать");
@@ -86,10 +95,10 @@ public class TestRunner extends BaseTest {
     @Test (priority = 2)
     public void sendMessageFromDraft(){
         String to = "test@mail.ru";
-        String topicName = "verify new message topic " + 6;
+        String topicName = "verify new message topic " + getRandomNumber();
 
         MainPage mainPage = new MainPage();
-        mainPage.authorizeUser();
+        mainPage.authorizeUser(user);
 
         MailPage mailPage = new MailPage();
         int itemsNumber = mailPage.getItemsNumber("Черновики");
@@ -111,10 +120,10 @@ public class TestRunner extends BaseTest {
     @Test (priority = 2)
     public void verifySentMessage(){
         String to = "test@mail.ru";
-        String topicName = "verify new message topic " + 7;
+        String topicName = "verify new message topic " + getRandomNumber();
 
         MainPage mainPage = new MainPage();
-        mainPage.authorizeUser();
+        mainPage.authorizeUser(user);
 
         MailPage mailPage = new MailPage();
         int itemsNumber = mailPage.getItemsNumber("Отправленные");
@@ -130,6 +139,19 @@ public class TestRunner extends BaseTest {
         mailPage.sendMessage(to);
 
         Assert.assertTrue(mailPage.getItemsNumber("Отправленные") == itemsNumber);
+        mainPage.logOutUser();
+    }
+
+    @Test (priority = 2)
+    public void searchingTest(){
+        MainPage mainPage = new MainPage();
+        mainPage.authorizeUser(user);
+
+        MailPage mailPage = new MailPage();
+        mailPage.runFreeSearch("Яндекс");
+        Assert.assertTrue(mailPage.isSearchPopupVisible());
+
+        mailPage.searchButton().click();    //to close the popup
         mainPage.logOutUser();
     }
 }

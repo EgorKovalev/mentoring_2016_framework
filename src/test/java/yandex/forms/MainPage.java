@@ -1,5 +1,6 @@
 package yandex.forms;
 
+import core.businessLogic.User;
 import core.webdriver.BaseForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -25,19 +26,11 @@ public class MainPage extends BaseForm {
     @FindBy(xpath = "//button[contains(@class,'auth__button')]")
     private WebElement submitButton;
 
-    public void authorizeUser(){
+    public void authorizeUser(User user){
         loginInput.clear();
         loginInput.sendKeys(user.getUsername());
         passwordInput.clear();
         passwordInput.sendKeys(user.getPassword());
-        submitButton.click();
-    }
-
-    public void authorizeUser(String username, String password){
-        loginInput.clear();
-        loginInput.sendKeys(username);
-        passwordInput.clear();
-        passwordInput.sendKeys(password);
         submitButton.click();
     }
 

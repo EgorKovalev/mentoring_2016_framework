@@ -1,5 +1,6 @@
 package yandex.forms;
 
+import core.businessLogic.User;
 import core.webdriver.BaseForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -31,6 +32,18 @@ public class MailPage extends BaseForm {
 
     @FindBy(xpath = "//table[@class='b-compose-head']//button")
     private WebElement sendMessage;
+
+    @FindBy(xpath = "//*[@class='b-header__right']/a[@id='nb-1']")
+    private WebElement mailBoxFullName;
+
+    @FindBy(xpath = "//form[@class='jane-search']/div//span[@class='_nb-input-content']/input")
+    private WebElement searchfield;
+
+    @FindBy(className = "b-toolbar-dropdowns")
+    private WebElement searchPopup;
+
+    @FindBy(xpath = "//form[@class]//button")
+    private WebElement searchButton;
 
     public String getCurrentEmailBoxName(){
         return mailBoxName.getText();
@@ -74,5 +87,22 @@ public class MailPage extends BaseForm {
         waitForPageToLoad();
         sendKeyViaActions(to);
         sendMessage.click();
+    }
+
+    public boolean isDisplayedNameCorrect(User user){
+        return mailBoxFullName.getText().equals(user.getUsername() + "@yandex.ru");
+    }
+
+    public void runFreeSearch(String text){
+        searchfield.click();
+        searchfield.sendKeys(text);
+    }
+
+    public boolean isSearchPopupVisible(){
+        return searchPopup.isDisplayed();
+    }
+
+    public WebElement searchButton(){
+        return searchButton;
     }
 }
