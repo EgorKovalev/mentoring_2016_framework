@@ -1,12 +1,12 @@
-package yandex.forms;
+package yandex.menus;
 
-import core.webdriver.BaseForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import yandex.forms.UserSettingsDroplist;
 
-public class TopMenu extends BaseForm {
+public class TopMenu extends BaseMenu {
     private final static By titleLocator = By.xpath("//div[@class='b-header']");
     private String itemPath = "//div[@class='b-header']/div[@class='b-header__middle']/a[contains(.,'%s')]";
     private UserSettingsDroplist userSettingsDroplist = new UserSettingsDroplist();
@@ -23,6 +23,7 @@ public class TopMenu extends BaseForm {
         return driver.findElement(By.xpath(String.format(itemPath, name)));
     }
 
+    @Override
     public void logOut(){
         userSettingDropList.click();
         userSettingsDroplist.getItem("Выход").click();

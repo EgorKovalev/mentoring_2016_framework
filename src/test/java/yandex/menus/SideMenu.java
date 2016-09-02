@@ -1,12 +1,11 @@
-package yandex.forms;
+package yandex.menus;
 
-import core.webdriver.BaseForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
-public class SideMenu extends BaseForm {
+public class SideMenu extends BaseMenu {
     private final static By titleLocator = By.xpath("//div[@class='block-left-box']");
     private String itemsPath = "//div[@class='block-folders']/div/div/div[contains(.,'%s')]";
     private String itemsNumberPath = itemsPath + "/span/span/span";
@@ -16,6 +15,7 @@ public class SideMenu extends BaseForm {
         PageFactory.initElements(driver, this);
     }
 
+    @Override
     public String getItemsNumber(String name){
         try {
             return driver.findElement(By.xpath(String.format(itemsNumberPath, name))).getText();

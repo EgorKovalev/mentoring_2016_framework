@@ -5,10 +5,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import yandex.menus.MenuMaker;
+import yandex.menus.TopMenu;
 
 public class NewMessagePage extends BaseForm {
     private final static By titleLocator = By.xpath("//div[@class='b-compose-head']");
-    private TopMenu topMenu = new TopMenu();
+    private MenuMaker menuMaker = new MenuMaker();
 
     public NewMessagePage() {
         super(titleLocator);
@@ -19,7 +21,7 @@ public class NewMessagePage extends BaseForm {
     private WebElement subjectInput;
 
     public void clickTopmenuItem(String name){
-        topMenu.getItem(name).click();
+        menuMaker.getTopMenuItem(name).click();
     }
 
     public void createNewMessage(){

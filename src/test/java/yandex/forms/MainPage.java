@@ -5,10 +5,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import yandex.menus.MenuMaker;
 
 public class MainPage extends BaseForm {
     private final static By titleLocator = By.xpath("//div[contains(@class,'container__search container__line')]");
-    private TopMenu topMenu = new TopMenu();
+    private MenuMaker menuMaker = new MenuMaker();
 
     public MainPage() {
         super(titleLocator);
@@ -41,7 +42,7 @@ public class MainPage extends BaseForm {
     }
 
     public void logOutUser(){
-        topMenu.waitForPageToLoad();
-        topMenu.logOut();
+        menuMaker.waitForPageToLoad();
+        menuMaker.logOut();
     }
 }

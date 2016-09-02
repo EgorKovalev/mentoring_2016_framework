@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.Reporter;
 
 public final class Logger {
+    //decorator pattern example
     private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(Logger.class);
     private static Logger instance = null;
 
@@ -11,6 +12,7 @@ public final class Logger {
     }
 
     public static synchronized Logger getInstance() {
+        //singleton pattern example
         if (instance == null) {
             instance = new Logger();
         }

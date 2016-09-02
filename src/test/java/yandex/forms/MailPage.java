@@ -5,15 +5,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import yandex.menus.MenuMaker;
+import yandex.menus.SideMenu;
+import yandex.menus.ToolbarMenu;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MailPage extends BaseForm {
     private final static By titleLocator = By.xpath("//div[contains(@class,'b-toolbar__block_chevron')]");
-    private ToolbarMenu toolbarMenu = new ToolbarMenu();
     private PopupBox popupBox = new PopupBox();
-    private SideMenu sideMenu = new SideMenu();
+    private MenuMaker menuMaker = new MenuMaker();
     private final String messageTopic = "//div[@class='b-messages']//span[@class='b-messages__subject' and .='%s']";
 
     public MailPage() {
@@ -35,7 +37,7 @@ public class MailPage extends BaseForm {
     }
 
     public void clickToolbarItem(String name){
-        toolbarMenu.getItem(name).click();
+        menuMaker.getToolbarItem(name).click();
     }
 
     public void saveChanges(){
@@ -49,11 +51,11 @@ public class MailPage extends BaseForm {
     }
 
     public int getItemsNumber(String name){
-        return Integer.valueOf(sideMenu.getItemsNumber(name));
+        return Integer.valueOf(menuMaker.getItemsNumber(name));
     }
 
     public void clickSidebarItem(String name){
-        sideMenu.getItem(name).click();
+        menuMaker.getSideMenuItem(name).click();
     }
 
     public List<String> getMessageTopics(){

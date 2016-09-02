@@ -1,11 +1,10 @@
-package yandex.forms;
+package yandex.menus;
 
-import core.webdriver.BaseForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
-public class ToolbarMenu extends BaseForm {
+public class ToolbarMenu extends BaseMenu {
     private final static By titleLocator = By.xpath("//div[@class='block-toolbar-box']");
     private String itemPath = "//div[@class='block-toolbar']/div/div/div/a[contains(@title,'%s')]";
 
